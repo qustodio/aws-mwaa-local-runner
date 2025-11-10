@@ -41,7 +41,8 @@ make install -j $(nproc) # use -j to set the cores for the build
 popd
 
 # Upgrade pip
-pip3 install $PIP_OPTION --upgrade 'pip<23'
+# pip3 install $PIP_OPTION --upgrade 'pip<23'
+pip3 install $PIP_OPTION --upgrade pip
 
 # openjdk is required for JDBC to work with Airflow
 dnf install -y java-17-amazon-corretto
@@ -65,7 +66,7 @@ fi
 # install mariadb_devel and its dependencies
 sudo rpm -ivh /mariadb_rpm/*
 
-sudo -u airflow pip3 install $PIP_OPTION --no-use-pep517 --constraint /constraints.txt poetry
+sudo -u airflow pip3 install $PIP_OPTION --constraint /constraints.txt poetry
 sudo -u airflow pip3 install $PIP_OPTION --constraint /constraints.txt cached-property
 sudo -u airflow pip3 install $PIP_OPTION --constraint /constraints.txt wheel 
 sudo -u airflow pip3 install $PIP_OPTION --constraint /constraints.txt --use-deprecated legacy-resolver apache-airflow[celery,statsd"${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}"]=="${AIRFLOW_VERSION}"
