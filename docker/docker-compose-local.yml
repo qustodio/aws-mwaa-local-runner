@@ -1,4 +1,3 @@
-version: "3.7"
 services:
   postgres:
     image: postgres:13-alpine
@@ -14,6 +13,7 @@ services:
       - "${PWD}/db-data:/var/lib/postgresql/data"
 
   local-runner:
+    # 2.10.3 is the latest version available
     image: amazon/mwaa-local:2_10_3
     restart: always
     depends_on:
