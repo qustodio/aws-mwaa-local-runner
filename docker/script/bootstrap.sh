@@ -50,17 +50,19 @@ dnf install -y java-17-amazon-corretto
 # Installing mariadb-devel dependency for apache-airflow-providers-mysql.
 # The mariadb-devel provided by AL2 conflicts with openssl11 which is required Python 3.10
 # so a newer version of the dependency must be installed from source.
+# Downloaded from archive.mariadb.org: mirror.mariadb.org only serves the latest
+# patch release of each series, so pinned URLs there start returning 404.
 sudo mkdir mariadb_rpm
 sudo chown airflow /mariadb_rpm
 
 if [[ $(uname -p) == "aarch64" ]]; then
-  wget https://mirror.mariadb.org/yum/11.4/fedora38-aarch64/rpms/MariaDB-common-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-  wget https://mirror.mariadb.org/yum/11.4/fedora38-aarch64/rpms/MariaDB-shared-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-  wget https://mirror.mariadb.org/yum/11.4/fedora38-aarch64/rpms/MariaDB-devel-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
+  wget https://archive.mariadb.org/mariadb-11.4.2/yum/fedora38-aarch64/rpms/MariaDB-common-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
+  wget https://archive.mariadb.org/mariadb-11.4.2/yum/fedora38-aarch64/rpms/MariaDB-shared-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
+  wget https://archive.mariadb.org/mariadb-11.4.2/yum/fedora38-aarch64/rpms/MariaDB-devel-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
 else
-  wget https://mirror.mariadb.org/yum/11.4/fedora38-amd64/rpms/MariaDB-common-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-  wget https://mirror.mariadb.org/yum/11.4/fedora38-amd64/rpms/MariaDB-shared-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-  wget https://mirror.mariadb.org/yum/11.4/fedora38-amd64/rpms/MariaDB-devel-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
+  wget https://archive.mariadb.org/mariadb-11.4.2/yum/fedora38-amd64/rpms/MariaDB-common-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
+  wget https://archive.mariadb.org/mariadb-11.4.2/yum/fedora38-amd64/rpms/MariaDB-shared-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
+  wget https://archive.mariadb.org/mariadb-11.4.2/yum/fedora38-amd64/rpms/MariaDB-devel-11.4.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
 fi
 
 # install mariadb_devel and its dependencies
